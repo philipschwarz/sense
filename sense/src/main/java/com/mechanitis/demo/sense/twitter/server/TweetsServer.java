@@ -27,7 +27,4 @@ public class TweetsServer implements Runnable {
         server.stop();
     }
 
-    public MessageListener<String> getMessageListener() {
-        return tweetsEndpoint;
-    }
 }

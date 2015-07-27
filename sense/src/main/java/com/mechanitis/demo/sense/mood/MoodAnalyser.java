@@ -1,11 +1,9 @@
 package com.mechanitis.demo.sense.mood;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.mechanitis.demo.sense.mood.Mood.HAPPY;
 import static com.mechanitis.demo.sense.mood.Mood.SAD;
@@ -33,18 +31,14 @@ public class MoodAnalyser {
         WORD_TO_MOOD.put("awful", SAD);
     }
 
-    public static String identifyMood(String twitterMessage) {
-        return Pattern.compile("\\s+").splitAsStream(twitterMessage)
+    public static String analyseMood(String fullMessage) {
+        return Pattern.compile("\\s+").splitAsStream(getTweetMessageFrom(fullMessage))
                      .map(String::toLowerCase)
                      .map(WORD_TO_MOOD::get)
                      .filter(mood -> mood != null)
                      .distinct()
                      .map(Enum::name)
                      .collect(Collectors.joining(","));
-    }
-
-    public static String analyseMood(String fullMessage) {
-        return identifyMood(getTweetMessageFrom(fullMessage));
     }
 
     private MoodAnalyser() {

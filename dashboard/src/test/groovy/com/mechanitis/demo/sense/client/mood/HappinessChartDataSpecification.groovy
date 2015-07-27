@@ -1,10 +1,8 @@
 package com.mechanitis.demo.sense.client.mood
 
-import spock.lang.Ignore
 import spock.lang.Specification
 
 class HappinessChartDataSpecification extends Specification {
-    @Ignore
     def 'should have ten bars with value zero before data received'() {
         when:
         def happinessChartData = new HappinessChartData()
@@ -16,7 +14,6 @@ class HappinessChartDataSpecification extends Specification {
         }
     }
 
-    @Ignore
     def 'should increment the bar that matches the current minute if the message is happy'() {
         // this functionality would be better (and more testable) if the time element was removed from the chart
         // data - inject "now" into the constructor, and have the TweetMood know when it was created.
