@@ -53,6 +53,14 @@ class MoodAnalyserSpecification extends Specification {
         moodyMessage.hasMood(HAPPY)
     }
 
+    def 'should correctly identify mixed messages with multiple moods'() {
+        when:
+        def moodyMessage = MoodAnalyser.analyseMood(format(TWITTER_MESSAGE_TEMPLATE, "Yesterday I was sad sad sad, but today is awesome"))
+
+        then:
+        moodyMessage == "SAD,HAPPY"
+    }
+
     @Ignore("4")
     def 'should not have any mood for messages that are neither happy or sad'() {
         when:

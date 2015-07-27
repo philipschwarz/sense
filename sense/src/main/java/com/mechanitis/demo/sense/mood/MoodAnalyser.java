@@ -1,8 +1,11 @@
 package com.mechanitis.demo.sense.mood;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.mechanitis.demo.sense.mood.Mood.HAPPY;
 import static com.mechanitis.demo.sense.mood.Mood.SAD;
@@ -30,13 +33,20 @@ public class MoodAnalyser {
         WORD_TO_MOOD.put("awful", SAD);
     }
 
-    private MoodAnalyser() {
+    public static String identifyMood(String twitterMessage) {
+        return Pattern.compile("\\s+").splitAsStream(twitterMessage)
+                     .map(String::toLowerCase)
+                     .map(WORD_TO_MOOD::get)
+                     .filter(mood -> mood != null)
+                     .distinct()
+                     .map(Enum::name)
+                     .collect(Collectors.joining(","));
     }
 
-    public static MoodyMessage analyseMood(String fullMessage) {
-        String[] wordsInMessage = getTweetMessageFrom(fullMessage).split(" ");
-        //TODO: figure out the moods in this message
-        Set<Mood> moods = null;
-        return new MoodyMessage(moods);
+    public static String analyseMood(String fullMessage) {
+        return identifyMood(getTweetMessageFrom(fullMessage));
+    }
+
+    private MoodAnalyser() {
     }
 }

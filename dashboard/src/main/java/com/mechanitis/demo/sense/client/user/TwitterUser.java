@@ -22,7 +22,7 @@ public class TwitterUser {
         return twitterHandle;
     }
 
-    public int getTweets() {
+    public int getNumberOfTweets() {
         return tweets.get();
     }
 

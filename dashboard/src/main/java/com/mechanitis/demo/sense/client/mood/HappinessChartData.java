@@ -4,19 +4,20 @@ import com.mechanitis.demo.sense.infrastructure.MessageListener;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 import static java.time.LocalTime.now;
+import static java.util.stream.IntStream.range;
 
 public class HappinessChartData implements MessageListener<TweetMood> {
     private final XYChart.Series<String, Double> dataSeries = new XYChart.Series<>();
     private final Map<Integer, Integer> minuteToDataPosition = new HashMap<>();
 
     public HappinessChartData() {
-        // TODO: get minute value for right now
-
-        // TODO: create an empty bar for every minute for the next ten minutes
+        int nowMinute = LocalDateTime.now().getMinute();
+        range(nowMinute, nowMinute + 10).forEach(this::initialiseBarToZero);
     }
 
     @Override
